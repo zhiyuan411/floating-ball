@@ -1,0 +1,112 @@
+/**
+ * 悬浮球组件 - CSS样式
+ */
+
+
+
+/* 悬浮球容器样式 */
+#floating-ball-container {
+  position: fixed;
+  z-index: 50;
+}
+
+/* 主按钮样式 */
+#floating-ball-button {
+  width: 32px;
+  height: 32px;
+  /* 防止被外部的 button 的设置覆盖导致变宽 */
+  min-width: 32px;
+  min-height: 32px;
+  padding: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  outline: none;
+  transition: all 0.3s;
+  border: none;
+  cursor: pointer;
+}
+
+/* 主按钮图标旋转动画 */
+#floating-ball-button i {
+  transition: transform 0.3s ease;
+}
+
+/* 菜单项容器样式 */
+#floating-ball-items {
+  position: absolute;
+  bottom: 32px;
+  right: 0;
+}
+  
+/* 菜单项初始样式（不展示） */
+.floating-ball-item {
+  position: absolute;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  /*margin-bottom: 8px;*/
+  opacity: 0;
+  transition: all 0.3s ease;
+  transform: translateY(0);
+  pointer-events: none;
+}
+
+/* 菜单项显示时样式 */
+.floating-ball-item.opacity-100 {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 菜单项链接样式 */
+.floating-ball-item a {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s;
+  transform: translateZ(0);
+  text-decoration: none;
+}
+
+/* 菜单项悬停效果 */
+.floating-ball-item a:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+}
+
+/* 菜单项图标容器样式 */
+.floating-ball-item span {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* 主按钮图标旋转效果 */
+.floating-ball-rotate-icon {
+  transform: rotate(135deg);
+  transition: transform 0.3s ease;
+}
+
+/* 定位相关样式 */
+.floating-ball-bottom-6 {
+  bottom: 24px;
+}
+.floating-ball-right-6 {
+  right: 24px;
+}
+.floating-ball-left-6 {
+  left: 24px;
+}
+.floating-ball-top-6 {
+  top: 24px;
+}
+
