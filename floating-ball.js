@@ -32,10 +32,12 @@
             top: 0,
             behavior: 'smooth'
           });
-          const button = document.getElementById('floating-ball-button');
-          if (button) {
-            button.click();
-          }
+          // const button = document.getElementById('floating-ball-button');
+          // if (button) {
+          //   button.click();
+          // }
+          const instance = FloatingBall.instances[0];
+          if (instance) instance.closeMenu();
         }
       },
       {
@@ -193,16 +195,25 @@
     // 应用样式
     applyStyles(mergedConfig);
 
+    // 外部创建状态对象
+    const state = { menuOpen: false };
+
     // 绑定事件
-    bindEvents(mainButton, menuItems, mergedConfig);
+    bindEvents(mainButton, menuItems, mergedConfig, state);
 
     // 应用插件
     applyPlugins(mergedConfig);
 
     // 创建组件实例
     const instance = {
-      openMenu: () => openMenu(menuItems, mainButton, mergedConfig),
-      closeMenu: () => closeMenu(menuItems, mainButton),
+      openMenu: () => {
+        openMenu(menuItems, mainButton, mergedConfig);
+        state.menuOpen = true;
+      },
+      closeMenu: () => {
+        closeMenu(menuItems, mainButton);
+        state.menuOpen = false;
+      },
       destroy: () => destroy(container),
       getConfig: () => mergedConfig
     };
@@ -325,26 +336,27 @@
   /**
    * 绑定事件
    */
-  function bindEvents(mainButton, menuItems, config) {
-    let menuOpen = false;
+  function bindEvents(mainButton, menuItems, config, state) {
 
     // 主按钮点击事件
     mainButton.addEventListener('click', () => {
-      menuOpen = !menuOpen;
 
-      if (menuOpen) {
-        openMenu(menuItems, mainButton, config);
-      } else {
+      if (state.menuOpen) {
         closeMenu(menuItems, mainButton);
+      } else {
+        openMenu(menuItems, mainButton, config);
       }
+
+      // 反转状态
+      state.menuOpen = !state.menuOpen;
     });
 
     // 点击其他区域关闭菜单
     document.addEventListener('click', (e) => {
       const container = document.getElementById('floating-ball-container');
-      if (!container.contains(e.target) && menuOpen) {
+      if (!container.contains(e.target) && state.menuOpen) {
         closeMenu(menuItems, mainButton);
-        menuOpen = false;
+        state.menuOpen = false;
       }
     });
   }
